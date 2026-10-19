@@ -1,0 +1,34 @@
+# Dependências
+node_modules/
+**/node_modules/
+
+# Build / dist
+dist/
+**/dist/
+build/
+
+# Variáveis de ambiente
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Testes / coverage
+coverage/
+
+# Docker (opcional — veja nota abaixo)
+# docker-compose.override.yml
