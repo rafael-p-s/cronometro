@@ -1,14 +1,26 @@
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 export default function PokeApi() {
     const [pokemon, setPokemon] = useState("");
     const [imagem, setImagem] = useState("");
     const [name, setName] = useState("");
+    const [buscar, setBuscar] = useState(false);
+
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        if (pokemon === '') {
+            inputRef.current.focus();
+        }
+    }, [])
+
 
     const handleSubmit = async () => {
         if (!pokemon.trim()) {
             return alert("Pokemon could not be found.");
         }
+
+        setBuscar(true)
 
         try {
             const data = await findPoke(pokemon.trim().toLowerCase());
@@ -21,6 +33,8 @@ export default function PokeApi() {
             setName("");
             setImagem("");
             alert("Pokemon could not be found", error.message);
+        } finally {
+            setBuscar(false);
         }
 
     }
@@ -41,8 +55,9 @@ export default function PokeApi() {
             <h1>Poke API</h1>
             <div>
                 <input type="text" placeholder="Informe o nome do Pokémon" value={pokemon}
+                       ref={inputRef}
                        onChange={e => setPokemon(e.target.value)} required/>
-                <button onClick={handleSubmit}>Buscar</button>
+                <button onClick={handleSubmit}>{!buscar ? "Buscar" : "Buscando..."}</button>
             </div>
             <div>
                 <p>Nome:{name}</p>
